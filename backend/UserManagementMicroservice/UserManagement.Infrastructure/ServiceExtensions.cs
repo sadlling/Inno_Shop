@@ -2,7 +2,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using UserManagement.Application;
+using UserManagement.Application.Interfaces.Repositories;
 using UserManagement.Infrastructure.Context;
+using UserManagement.Infrastructure.Repositories;
 
 namespace UserManagement.Infrastructure
 {
@@ -14,6 +16,8 @@ namespace UserManagement.Infrastructure
             {
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
+
+            services.AddScoped<IUserRepository,UserRepository>();
 
         }
     }

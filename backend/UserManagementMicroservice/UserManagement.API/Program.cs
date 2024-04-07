@@ -18,6 +18,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationLayer();
 builder.Services.AddInfrastructureLayer(builder.Configuration);
 builder.Services.AddApiAuthentication(builder.Configuration);
+builder.Services.AddGlobalExceptionHandler();
 builder.Services.AddApiCorsPolisy();
 
 var app = builder.Build();
@@ -32,9 +33,13 @@ app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 
+app.UseExceptionHandler();
+
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.UseCors();
+
 app.MapControllers();
 
 app.Run();
