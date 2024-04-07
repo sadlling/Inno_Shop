@@ -1,4 +1,5 @@
 ﻿using UserManagement.Domain.Common;
+using UserManagement.Domain.Enums;
 
 namespace UserManagement.Domain.Entities
 {
@@ -9,6 +10,7 @@ namespace UserManagement.Domain.Entities
         public bool IsEmailConfirmed { get; set; }
         public string PasswordHash { get; set; } = string.Empty!;
         public string? PhoneNumber { get; set; }
+        public Role Role { get; set; }
         public string? RefreshToken {  get; set; }
         public DateTimeOffset? TokenCreated {  get; set; }
         public DateTimeOffset? TokenExpires { get; set; }

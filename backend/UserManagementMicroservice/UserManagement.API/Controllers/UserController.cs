@@ -7,10 +7,6 @@ namespace UserManagement.API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        [HttpGet]
-        public async Task<IActionResult> GetUser()
-        {
-            return Ok();
-        }
+        
     }
 }
