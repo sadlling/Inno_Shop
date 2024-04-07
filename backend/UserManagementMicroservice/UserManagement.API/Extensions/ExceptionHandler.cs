@@ -19,10 +19,10 @@ namespace UserManagement.API.Extensions
 
             var details = new ProblemDetails
             {
-                Detail = "Thrown " + exception.Message,
+                Detail = exception.Message,
                 Status = (int)HttpStatusCode.InternalServerError,
                 Title = "API Exception",
-                Type = "Server error"
+                Type = exception.GetType().ToString(),
             };
             var response = JsonSerializer.Serialize(details);
 

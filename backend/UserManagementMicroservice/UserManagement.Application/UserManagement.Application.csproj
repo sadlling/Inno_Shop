@@ -9,6 +9,7 @@
   <ItemGroup>
     <Folder Include="Common\" />
     <Folder Include="DTOs\" />
+    <Folder Include="Interfaces\Providers\" />
     <Folder Include="Mappings\" />
     <Folder Include="Validators\" />
     <Folder Include="Common\Paging\" />
