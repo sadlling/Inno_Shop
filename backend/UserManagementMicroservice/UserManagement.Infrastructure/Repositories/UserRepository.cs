@@ -36,9 +36,13 @@ namespace UserManagement.Infrastructure.Repositories
             }
         }
 
-        public Task DeleteAsync(User entity)
+        public async Task DeleteAsync(User entity)
         {
-            throw new NotImplementedException();
+            var result = await _userManager.DeleteAsync(entity);
+            if(!result.Succeeded)
+            {
+                throw new InvalidOperationException("Unable to delete user");
+            }
         }
 
         public async Task<List<User>> GetAllAsync()
@@ -85,9 +89,16 @@ namespace UserManagement.Infrastructure.Repositories
             }
         }
 
-        public Task UpdateRefreshTokenAsync(string userId, RefreshToken refreshToken)
+        public async Task UpdateRefreshTokenAsync(User user, RefreshToken refreshToken)
         {
-            throw new NotImplementedException();
+            user.RefreshToken = refreshToken.Token;
+            user.TokenCreated = refreshToken.TokenCreated;
+            user.TokenExpires = refreshToken.TokenExpires;
+            var result = await _userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                throw new InvalidOperationException($"Unable to update refresh token");
+            }
         }
     }
 }

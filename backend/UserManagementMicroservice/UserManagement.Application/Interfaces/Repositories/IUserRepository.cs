@@ -7,6 +7,6 @@ namespace UserManagement.Application.Interfaces.Repositories
     {
         public Task<User> GetByEmailAsync(string email);
         public Task<User> GetByUsernameAsync(string username);
-        public Task UpdateRefreshTokenAsync(string userId, RefreshToken refreshToken); 
+        public Task UpdateRefreshTokenAsync(User user, RefreshToken refreshToken); 
     }
 }
