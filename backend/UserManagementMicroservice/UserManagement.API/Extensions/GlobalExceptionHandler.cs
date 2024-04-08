@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Text.Json;
@@ -6,17 +7,16 @@ using UserManagement.Application.Common.CustomExceptions;
 
 namespace UserManagement.API.Extensions
 {
-    public class ExceptionHandler : IExceptionHandler
+    public sealed class GlobalExceptionHandler : IExceptionHandler
     {
-        private readonly ILogger<ExceptionHandler> _logger;
-        public ExceptionHandler(ILogger<ExceptionHandler> logger)
+        private readonly ILogger<GlobalExceptionHandler> _logger;
+        public GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger)
         {
             _logger = logger;
         }
 
         public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
         {
-            _logger.LogError(exception, exception.Message);
 
             var statusCode = GetStatusCode(exception);
 
@@ -35,12 +35,23 @@ namespace UserManagement.API.Extensions
             return true;
         }
 
-        private int GetStatusCode(Exception exception) => exception switch
+
+        private static int GetStatusCode(Exception exception) => exception switch
         {
             BadRequestException => (int)HttpStatusCode.BadRequest,
             NotFoundException => (int)HttpStatusCode.NotFound,
+            ValidationException => (int)HttpStatusCode.UnprocessableEntity,
             _ => (int)HttpStatusCode.InternalServerError,
         };
+        private static IReadOnlyDictionary<string, string[]> GetErrors(Exception exception)
+        {
+            IReadOnlyDictionary<string, string[]> errors = null!;
+            if (exception is CustomValidationException validationException)
+            {
+                errors = validationException.Errors;
+            }
+            return errors;
+        }
 
 
     }

@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using UserManagement.Application.DTOs;
+using UserManagement.Application.Features.UserFeatures;
 
 namespace UserManagement.Application.Validators
 {
-    public class UserValidators : AbstractValidator<CreateUserDto>
+    public class UserValidators : AbstractValidator<CreateUserRequest>
     {
         public UserValidators()
         {

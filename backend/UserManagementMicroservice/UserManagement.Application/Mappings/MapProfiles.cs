@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using UserManagement.Application.DTOs;
+using UserManagement.Application.Features.UserFeatures;
 using UserManagement.Domain.Entities;
 
 namespace UserManagement.Application.Mappings
@@ -8,9 +8,14 @@ namespace UserManagement.Application.Mappings
     {
         public MapProfiles() {
 
-            CreateMap<CreateUserDto, User>()
+            CreateMap<CreateUserRequest, User>()
                 .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => BCrypt.Net.BCrypt.HashPassword(src.Password)));
-        
+               
+
+
+
+
+
         }
     }
 }

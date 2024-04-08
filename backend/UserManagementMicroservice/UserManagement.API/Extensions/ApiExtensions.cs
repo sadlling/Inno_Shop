@@ -54,7 +54,7 @@ namespace UserManagement.API.Extensions
         }
         public static void AddGlobalExceptionHandler(this IServiceCollection services) 
         {
-            services.AddExceptionHandler<ExceptionHandler>();
+            services.AddExceptionHandler<GlobalExceptionHandler>();
             services.AddProblemDetails();
         
         }

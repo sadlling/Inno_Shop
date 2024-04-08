@@ -1,16 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage;
 using UserManagement.Domain.Entities;
 
 namespace UserManagement.Infrastructure.Context
 {
     public class UserManagementDbContext : IdentityDbContext<User>
     {
-
-        public UserManagementDbContext(DbContextOptions options) : base(options)
+        public UserManagementDbContext(DbContextOptions<UserManagementDbContext> options) : base(options)
         {
             //try
             //{
