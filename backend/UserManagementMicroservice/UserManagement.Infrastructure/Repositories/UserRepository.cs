@@ -1,4 +1,6 @@
-﻿using UserManagement.Application.Interfaces.Repositories;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using UserManagement.Application.Interfaces.Repositories;
 using UserManagement.Domain.Common;
 using UserManagement.Domain.Entities;
 using UserManagement.Infrastructure.Context;
@@ -8,14 +10,30 @@ namespace UserManagement.Infrastructure.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly UserManagementDbContext _context;
-        public UserRepository(UserManagementDbContext context)
+        private readonly UserManager<User> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+
+        public UserRepository(
+            UserManagementDbContext context,
+            UserManager<User> userManager,
+            RoleManager<IdentityRole> roleManager)
         {
             _context = context;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
-        public Task<User> CreateAsync(User entity)
+        public async Task CreateAsync(User entity)
         {
-            throw new NotImplementedException();
+            var result = await _userManager.CreateAsync(entity);
+            if (!result.Succeeded)
+            {
+                throw new InvalidOperationException("Failed creation. Exception from repository");
+            }
+            if (await _roleManager.RoleExistsAsync("User"))
+            {
+                await _userManager.AddToRoleAsync(entity, "User");
+            }
         }
 
         public Task DeleteAsync(User entity)
@@ -23,27 +41,51 @@ namespace UserManagement.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<User> GetAllAsync(string name)
+        public async Task<List<User>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _userManager.Users.ToListAsync();
         }
 
-        public Task<User> GetByEmailAsync(string email)
+        public async Task<User> GetByEmailAsync(string email)
         {
-            throw new NotImplementedException();
+            var user = await _userManager.FindByEmailAsync(email);
+            if(user == null)
+            {
+                throw new InvalidOperationException($"Unable to find user {email}");
+            }
+            return user;
         }
 
-        public Task<User> GetByIdAsync(Guid id)
+        public async Task<User> GetByIdAsync(string id)
         {
-            throw new NotImplementedException();
+            var user = await _userManager.FindByIdAsync(id);
+            if( user == null )
+            {
+                throw new InvalidOperationException($"Unable to find user {id}");
+            }
+            return user;
         }
 
-        public Task<User> UpdateAsync(User entity)
+        public async Task<User> GetByUsernameAsync(string username)
         {
-            throw new NotImplementedException();
+            var user = await _userManager.FindByNameAsync(username);
+            if (user == null)
+            {
+                throw new InvalidOperationException($"Unable to find user {username}");
+            }
+            return user;
         }
 
-        public Task UpdateRefreshTokenAsync(Guid userId, RefreshToken refreshToken)
+        public async Task UpdateAsync(User entity)
+        {
+            var result = await _userManager.UpdateAsync(entity);
+            if(!result.Succeeded)
+            {
+                throw new InvalidOperationException($"Unable to update user");
+            }
+        }
+
+        public Task UpdateRefreshTokenAsync(string userId, RefreshToken refreshToken)
         {
             throw new NotImplementedException();
         }
