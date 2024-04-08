@@ -2,7 +2,7 @@
 
 namespace UserManagement.Application.Interfaces.Repositories
 {
-    public interface IBaseRepository<T> where T : BaseEntity
+    public interface IBaseRepository<T>
     {
         public Task<T> CreateAsync(T entity);
         public Task<T> UpdateAsync(T entity);
