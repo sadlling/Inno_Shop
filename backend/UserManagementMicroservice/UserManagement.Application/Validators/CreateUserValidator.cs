@@ -3,9 +3,9 @@ using UserManagement.Application.Features.UserFeatures;
 
 namespace UserManagement.Application.Validators
 {
-    public class UserValidators : AbstractValidator<CreateUserRequest>
+    public class CreateUserValidator : AbstractValidator<CreateUserRequest>
     {
-        public UserValidators()
+        public CreateUserValidator()
         {
             RuleFor(user => user.UserName).
                NotEmpty()

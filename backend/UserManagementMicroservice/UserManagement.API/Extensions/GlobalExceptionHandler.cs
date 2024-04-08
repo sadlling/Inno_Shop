@@ -24,8 +24,9 @@ namespace UserManagement.API.Extensions
             {
                 Detail = exception.Message,
                 Status = statusCode,
+                Extensions = GetErrors(exception).ToDictionary(x=>x.Key,x=>(object?)x.Value),
                 Title = "API Exception",
-                Type = exception.GetType().ToString(),
+                Type = exception.GetType().Name,
             };
             var response = JsonSerializer.Serialize(details);
             httpContext.Response.StatusCode = statusCode;
@@ -38,9 +39,8 @@ namespace UserManagement.API.Extensions
 
         private static int GetStatusCode(Exception exception) => exception switch
         {
-            BadRequestException => (int)HttpStatusCode.BadRequest,
             NotFoundException => (int)HttpStatusCode.NotFound,
-            ValidationException => (int)HttpStatusCode.UnprocessableEntity,
+            CustomValidationException => (int)HttpStatusCode.UnprocessableEntity,
             _ => (int)HttpStatusCode.InternalServerError,
         };
         private static IReadOnlyDictionary<string, string[]> GetErrors(Exception exception)
