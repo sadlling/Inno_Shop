@@ -17,17 +17,20 @@ namespace UserManagement.API.Extensions
 
         public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
         {
+            _logger.LogError(exception, exception.Message);
 
             var statusCode = GetStatusCode(exception);
+            var errors = GetErrors(exception);
 
             var details = new ProblemDetails
             {
                 Detail = exception.Message,
                 Status = statusCode,
-                Extensions = GetErrors(exception).ToDictionary(x=>x.Key,x=>(object?)x.Value),
+                Extensions = errors is null ? null! : errors.ToDictionary(x => x.Key, x => (object?)x.Value),
                 Title = "API Exception",
                 Type = exception.GetType().Name,
             };
+
             var response = JsonSerializer.Serialize(details);
             httpContext.Response.StatusCode = statusCode;
             httpContext.Response.ContentType = "application/json";

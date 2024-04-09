@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
+using System.Net;
 using System.Text;
+using System.Text.Json;
+using UserManagement.Application.Common.CustomExceptions;
 
 namespace UserManagement.API.Extensions
 {
@@ -58,5 +62,6 @@ namespace UserManagement.API.Extensions
             services.AddProblemDetails();
         
         }
+     
     }
 }
