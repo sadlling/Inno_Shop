@@ -21,7 +21,7 @@ namespace UserManagement.Application.Common.Behaviors
 
             var errorsDictionary = _validators
             .Select(x => x.ValidateAsync(context))
-            .SelectMany(x => x.Result.Errors)
+            .SelectMany(x => x.Result.Errors) //TODO add async&&
             .Where(x => x != null)
             .GroupBy(
                 x => x.PropertyName,

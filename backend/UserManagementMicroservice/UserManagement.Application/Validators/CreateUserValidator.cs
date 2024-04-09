@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using UserManagement.Application.Features.UserFeatures;
+using UserManagement.Application.Features.UserFeatures.CreateUser;
 using UserManagement.Application.Interfaces.Repositories;
 
 namespace UserManagement.Application.Validators

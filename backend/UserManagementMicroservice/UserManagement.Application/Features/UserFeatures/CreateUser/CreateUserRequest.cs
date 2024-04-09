@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace UserManagement.Application.Features.UserFeatures
+namespace UserManagement.Application.Features.UserFeatures.CreateUser
 {
     public record CreateUserRequest(
           string UserName,

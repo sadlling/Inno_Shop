@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using UserManagement.Application.Features.UserFeatures;
+using UserManagement.Application.Features.UserFeatures.CreateUser;
 
 namespace UserManagement.API.Controllers
 {

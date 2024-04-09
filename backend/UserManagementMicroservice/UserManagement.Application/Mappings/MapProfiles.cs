@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using UserManagement.Application.Features.UserFeatures;
+using UserManagement.Application.Features.UserFeatures.Authenticate;
+using UserManagement.Application.Features.UserFeatures.CreateUser;
 using UserManagement.Domain.Entities;
 
 namespace UserManagement.Application.Mappings
@@ -10,12 +11,8 @@ namespace UserManagement.Application.Mappings
 
             CreateMap<CreateUserRequest, User>()
                 .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => BCrypt.Net.BCrypt.HashPassword(src.Password)));
-               
 
-
-
-
-
+            CreateMap<AuthenticateUserRequest, User>();
         }
     }
 }
