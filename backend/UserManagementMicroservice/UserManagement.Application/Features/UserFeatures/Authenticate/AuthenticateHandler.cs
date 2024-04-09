@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using MediatR;
+using System.Net.Http.Headers;
+using UserManagement.Application.Common.CustomExceptions;
 using UserManagement.Application.Interfaces.Providers;
 using UserManagement.Application.Interfaces.Repositories;
+using UserManagement.Domain.Entities;
 
 namespace UserManagement.Application.Features.UserFeatures.Authenticate
 {
@@ -17,9 +20,29 @@ namespace UserManagement.Application.Features.UserFeatures.Authenticate
             _tokenProvider = tokenProvider;
         }
 
-        public Task<AuthenticateResponseDto> Handle(AuthenticateUserRequest request, CancellationToken cancellationToken)
+        public async Task<AuthenticateResponseDto> Handle(AuthenticateUserRequest request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var user = await _userRepository.GetByUsernameAsync(_mapper.Map<User>(request).UserName!);
+            if (user == null)
+            {
+                throw new NotFoundException($"User {request.UserName} not found");
+            }
+            if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
+            {
+                throw new InvalidPasswordException("Incorrect password");
+            }
+            var userRoles = await _userRepository.GetUserRolesAsync(user);
+            if (userRoles == null)
+            {
+                throw new InvalidOperationException("Roles not found");
+            }
+            var jwtToken = _tokenProvider.GenerateJwtToken(user, userRoles);
+            var refreshToken = _tokenProvider.GenerateRefreshToken();
+
+            await _userRepository.UpdateRefreshTokenAsync(user, refreshToken);
+
+            return new AuthenticateResponseDto(jwtToken, refreshToken.Token!);
+
         }
     }
 }

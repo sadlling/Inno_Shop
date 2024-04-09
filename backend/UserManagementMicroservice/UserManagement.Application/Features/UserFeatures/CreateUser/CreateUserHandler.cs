@@ -3,9 +3,9 @@ using MediatR;
 using UserManagement.Application.Interfaces.Repositories;
 using UserManagement.Domain.Entities;
 
-namespace UserManagement.Application.Features.UserFeatures
+namespace UserManagement.Application.Features.UserFeatures.CreateUser
 {
-    public sealed class CreateUserHandler : IRequestHandler<CreateUserRequest,Unit>
+    public sealed class CreateUserHandler : IRequestHandler<CreateUserRequest, Unit>
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;

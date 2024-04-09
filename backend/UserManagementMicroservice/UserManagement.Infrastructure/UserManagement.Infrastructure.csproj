@@ -28,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="TokenProvider\" />
     <Folder Include="MailProvider\" />
   </ItemGroup>
 

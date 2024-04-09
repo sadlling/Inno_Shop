@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using UserManagement.Application.Features.UserFeatures.Authenticate;
 using UserManagement.Application.Features.UserFeatures.CreateUser;
 
 namespace UserManagement.API.Controllers
@@ -19,10 +20,34 @@ namespace UserManagement.API.Controllers
         [HttpPost]
         [Route("Register")]
         [AllowAnonymous]
-        public async Task<IActionResult> Register(CreateUserRequest request)
+        public async Task<IActionResult> Register([FromBody]CreateUserRequest request)
         {
             var response  = await _mediator.Send(request);
             return Ok(response);
         }
+
+        [HttpPost]
+        [Route("Login")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login([FromBody]AuthenticateUserRequest request)
+        {
+            var response = await _mediator.Send(request);
+            if(response != null)
+            {
+                var cookieOptions = new CookieOptions
+                {
+                    Expires = DateTime.Now.AddHours(1),
+                    HttpOnly = true,
+                    SameSite = SameSiteMode.None,
+                    Path = "/",
+                    Secure = true,
+                };
+                Response.Cookies.Append("JWT", response.JwtToken, cookieOptions);
+                Response.Cookies.Append("Refresh", response.RefreshToken, cookieOptions);
+                return Ok("Login successfully");
+            }
+            return Unauthorized();
+        }
+
     }
 }

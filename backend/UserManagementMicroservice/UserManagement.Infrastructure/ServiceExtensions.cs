@@ -2,10 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using UserManagement.Application.Interfaces.Providers;
 using UserManagement.Application.Interfaces.Repositories;
 using UserManagement.Domain.Entities;
 using UserManagement.Infrastructure.Context;
 using UserManagement.Infrastructure.Repositories;
+using UserManagement.Infrastructure.TokenProviders;
 
 
 namespace UserManagement.Infrastructure
@@ -24,6 +26,7 @@ namespace UserManagement.Infrastructure
             .AddDefaultTokenProviders();
 
             services.AddScoped<IUserRepository,UserRepository>();
+            services.AddScoped<ITokenProvider,TokenProvider>();
 
         }
     }

@@ -69,6 +69,12 @@ namespace UserManagement.Infrastructure.Repositories
             return user!;
         }
 
+        public async Task<List<string>> GetUserRolesAsync(User user)
+        {
+            var roles = await _userManager.GetRolesAsync(user);
+            return roles.ToList();
+        }
+
         public async Task UpdateAsync(User entity)
         {
             var result = await _userManager.UpdateAsync(entity);

@@ -42,6 +42,7 @@ namespace UserManagement.API.Extensions
 
         private static int GetStatusCode(Exception exception) => exception switch
         {
+            InvalidPasswordException=>(int)HttpStatusCode.Unauthorized,
             NotFoundException => (int)HttpStatusCode.NotFound,
             CustomValidationException => (int)HttpStatusCode.UnprocessableEntity,
             _ => (int)HttpStatusCode.InternalServerError,

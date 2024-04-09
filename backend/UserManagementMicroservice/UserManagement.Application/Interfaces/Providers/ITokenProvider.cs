@@ -6,7 +6,7 @@ namespace UserManagement.Application.Interfaces.Providers
 {
     public interface ITokenProvider
     {
-        public string GenerateJwtToken(User user, string[] roles);
+        public string GenerateJwtToken(User user, List<string> roles);
         public RefreshToken GenerateRefreshToken();
         public ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
     }

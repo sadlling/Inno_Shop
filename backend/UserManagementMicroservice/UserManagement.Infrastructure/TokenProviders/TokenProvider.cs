@@ -7,9 +7,8 @@ using System.Text;
 using UserManagement.Application.Interfaces.Providers;
 using UserManagement.Domain.Common;
 using UserManagement.Domain.Entities;
-using UserManagement.Domain.Enums;
 
-namespace UserManagement.Infrastructure.TokenProvider
+namespace UserManagement.Infrastructure.TokenProviders
 {
     public class TokenProvider:ITokenProvider
     {
@@ -19,7 +18,7 @@ namespace UserManagement.Infrastructure.TokenProvider
             _configuration = configuration;
         }
 
-        public string GenerateJwtToken(User user, string[] roles)
+        public string GenerateJwtToken(User user, List<string> roles)
         {
             List<Claim> claims = [new Claim(ClaimTypes.NameIdentifier, user.Id)];
             claims.AddRange(roles.Select(role=>new Claim(ClaimTypes.Role, role)));    
