@@ -80,5 +80,30 @@ namespace UserManagement.API.Controllers
             return Unauthorized();
         }
 
+        [HttpPost]
+        [Route("LogOut")]
+        [Authorize]
+        public IActionResult LogOut()
+        {
+            var jwtToken = Request.Cookies["JWT"];
+            var refreshToken = Request.Cookies["Refresh"];
+
+            if (string.IsNullOrEmpty(jwtToken) || string.IsNullOrEmpty(refreshToken))
+            {
+                return Unauthorized();
+            }
+            var cookieOptions = new CookieOptions
+            {
+                Expires = DateTime.Now.AddDays(-1),
+                HttpOnly = true,
+                SameSite = SameSiteMode.None,
+                Path = "/",
+                Secure = true,
+            };
+            Response.Cookies.Append("JWT", "", cookieOptions);
+            Response.Cookies.Append("Refresh", "", cookieOptions);
+            return Ok();
+        }
+
     }
 }
