@@ -54,30 +54,18 @@ namespace UserManagement.Infrastructure.Repositories
         public async Task<User> GetByEmailAsync(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
-            //if(user == null)
-            //{
-            //    throw new NotFoundException($"Unable to find user {email}");
-            //}
             return user!;
         }
 
         public async Task<User> GetByIdAsync(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
-            //if( user == null )
-            //{
-            //    throw new NotFoundException($"Unable to find user {id}");
-            //}
             return user!;
         }
 
         public async Task<User> GetByUsernameAsync(string username)
         {
             var user = await _userManager.FindByNameAsync(username);
-            //if (user == null)
-            //{
-            //    throw new NotFoundException($"Unable to find user {username}");
-            //}
             return user!;
         }
 
