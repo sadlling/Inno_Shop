@@ -2,6 +2,7 @@
 using UserManagement.Application.DTOs;
 using UserManagement.Application.Features.AuthenticateFeatures.Authenticate;
 using UserManagement.Application.Features.UserFeatures.CreateUser;
+using UserManagement.Application.Features.UserFeatures.UpdateUser;
 using UserManagement.Domain.Entities;
 
 namespace UserManagement.Application.Mappings
@@ -16,6 +17,8 @@ namespace UserManagement.Application.Mappings
             CreateMap<AuthenticateUserRequest, User>();
 
             CreateMap<User, UserResponseDto>();
+            
+            CreateMap<UpdateUserRequest, User>();
 
         }
     }
