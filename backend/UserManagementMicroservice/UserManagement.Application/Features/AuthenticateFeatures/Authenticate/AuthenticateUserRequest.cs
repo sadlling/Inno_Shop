@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using UserManagement.Application.DTOs;
 
 namespace UserManagement.Application.Features.AuthenticateFeatures.Authenticate
 {

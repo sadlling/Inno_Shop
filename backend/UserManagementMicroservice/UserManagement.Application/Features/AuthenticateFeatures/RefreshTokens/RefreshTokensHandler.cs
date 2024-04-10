@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using System.Security.Claims;
-using UserManagement.Application.Features.AuthenticateFeatures.Authenticate;
+using UserManagement.Application.DTOs;
 using UserManagement.Application.Interfaces.Providers;
 using UserManagement.Application.Interfaces.Repositories;
 using UserManagement.Domain.Common;

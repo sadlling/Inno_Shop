@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using UserManagement.Application.Features.AuthenticateFeatures.Authenticate;
+using UserManagement.Application.DTOs;
 
 namespace UserManagement.Application.Features.AuthenticateFeatures.RefreshTokens
 {

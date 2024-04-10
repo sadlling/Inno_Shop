@@ -2,6 +2,7 @@
 using MediatR;
 using System.Net.Http.Headers;
 using UserManagement.Application.Common.CustomExceptions;
+using UserManagement.Application.DTOs;
 using UserManagement.Application.Interfaces.Providers;
 using UserManagement.Application.Interfaces.Repositories;
 using UserManagement.Domain.Entities;
