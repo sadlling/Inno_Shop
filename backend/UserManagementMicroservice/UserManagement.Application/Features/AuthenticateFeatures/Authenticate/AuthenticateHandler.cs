@@ -6,7 +6,7 @@ using UserManagement.Application.Interfaces.Providers;
 using UserManagement.Application.Interfaces.Repositories;
 using UserManagement.Domain.Entities;
 
-namespace UserManagement.Application.Features.UserFeatures.Authenticate
+namespace UserManagement.Application.Features.AuthenticateFeatures.Authenticate
 {
     public class AuthenticateHandler : IRequestHandler<AuthenticateUserRequest, AuthenticateResponseDto>
     {
@@ -26,7 +26,7 @@ namespace UserManagement.Application.Features.UserFeatures.Authenticate
             if (user == null)
             {
                 throw new NotFoundException($"User {request.UserName} not found");
-            } 
+            }
             if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
             {
                 throw new InvalidPasswordException("Incorrect password");

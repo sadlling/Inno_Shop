@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using UserManagement.Application.Features.UserFeatures.Authenticate;
+using UserManagement.Application.Features.AuthenticateFeatures.Authenticate;
 using UserManagement.Application.Features.UserFeatures.CreateUser;
 using UserManagement.Domain.Entities;
 

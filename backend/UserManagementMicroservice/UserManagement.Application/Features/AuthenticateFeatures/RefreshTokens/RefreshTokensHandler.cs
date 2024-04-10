@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using System.Security.Claims;
-using UserManagement.Application.Features.UserFeatures.Authenticate;
+using UserManagement.Application.Features.AuthenticateFeatures.Authenticate;
 using UserManagement.Application.Interfaces.Providers;
 using UserManagement.Application.Interfaces.Repositories;
 using UserManagement.Domain.Common;
 
-namespace UserManagement.Application.Features.UserFeatures.RefreshTokens
+namespace UserManagement.Application.Features.AuthenticateFeatures.RefreshTokens
 {
     public class RefreshTokensHandler : IRequestHandler<RefreshTokensRequest, AuthenticateResponseDto>
     {
@@ -17,7 +17,7 @@ namespace UserManagement.Application.Features.UserFeatures.RefreshTokens
             _userRepository = userRepository;
             _tokenProvider = tokenProvider;
         }
-        public async  Task<AuthenticateResponseDto> Handle(RefreshTokensRequest request, CancellationToken cancellationToken)
+        public async Task<AuthenticateResponseDto> Handle(RefreshTokensRequest request, CancellationToken cancellationToken)
         {
             var principal = _tokenProvider.GetPrincipalFromExpiredToken(request.JwtToken);
             if (principal == null)

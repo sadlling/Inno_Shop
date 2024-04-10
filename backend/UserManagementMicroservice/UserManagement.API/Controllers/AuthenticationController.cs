@@ -1,19 +1,18 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using UserManagement.Application.Features.UserFeatures.Authenticate;
+using UserManagement.Application.Features.AuthenticateFeatures.Authenticate;
 using UserManagement.Application.Features.UserFeatures.CreateUser;
-using UserManagement.Application.Features.UserFeatures.RefreshTokens;
+using UserManagement.Application.Features.AuthenticateFeatures.RefreshTokens;
 
 namespace UserManagement.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class AuthenticationController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public UserController(IMediator mediator)
+        public AuthenticationController(IMediator mediator)
         {
             _mediator = mediator;
         }

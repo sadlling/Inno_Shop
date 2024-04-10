@@ -1,4 +1,4 @@
-﻿namespace UserManagement.Application.Features.UserFeatures.Authenticate
+﻿namespace UserManagement.Application.Features.AuthenticateFeatures.Authenticate
 {
     public record AuthenticateResponseDto(
         string JwtToken,
