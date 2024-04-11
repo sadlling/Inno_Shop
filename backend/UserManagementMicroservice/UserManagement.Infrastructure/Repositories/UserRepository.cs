@@ -39,8 +39,13 @@ namespace UserManagement.Infrastructure.Repositories
 
         public async Task DeleteAsync(User entity)
         {
-            var result = await _userManager.DeleteAsync(entity);
-            if(!result.Succeeded)
+            var userForDelete = await _userManager.FindByIdAsync(entity.Id);
+            if (userForDelete is null)
+            {
+                throw new NotFoundException("User not found");
+            }
+            var result = await _userManager.DeleteAsync(userForDelete);
+            if (!result.Succeeded)
             {
                 throw new InvalidOperationException("Unable to delete user");
             }
@@ -77,23 +82,38 @@ namespace UserManagement.Infrastructure.Repositories
 
         public async Task UpdateAsync(User entity)
         {
-            var result = await _userManager.UpdateAsync(entity);
-            if(!result.Succeeded)
+            try
             {
-                throw new InvalidOperationException($"Unable to update user");
+                await _context.Users
+                    .Where(user => user.Id.Equals(entity.Id))
+                    .ExecuteUpdateAsync(s => s
+                    .SetProperty(p => p.UserName, entity.UserName)
+                    .SetProperty(p => p.Email, entity.Email)
+                    .SetProperty(p => p.PhoneNumber, entity.PhoneNumber));
             }
+            catch (Exception)
+            {
+                throw new InvalidOperationException("Failed to update user");
+            }
+
         }
 
         public async Task UpdateRefreshTokenAsync(User user, RefreshToken refreshToken)
         {
-            user.RefreshToken = refreshToken.Token;
-            user.TokenCreated = refreshToken.TokenCreated;
-            user.TokenExpires = refreshToken.TokenExpires;
-            var result = await _userManager.UpdateAsync(user);
-            if (!result.Succeeded)
+            try
             {
-                throw new InvalidOperationException($"Unable to update refresh token");
+                await _context.Users
+                    .Where(u => u.Id.Equals(user.Id))
+                    .ExecuteUpdateAsync(s => s
+                    .SetProperty(p => p.RefreshToken, refreshToken.Token)
+                    .SetProperty(p => p.TokenCreated, refreshToken.TokenCreated)
+                    .SetProperty(p => p.TokenExpires, refreshToken.TokenExpires));
             }
+            catch (Exception)
+            {
+                throw new InvalidOperationException("Failed to update refresh token");
+            }
+
         }
     }
 }
