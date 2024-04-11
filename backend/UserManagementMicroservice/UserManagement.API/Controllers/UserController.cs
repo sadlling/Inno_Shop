@@ -20,9 +20,10 @@ namespace UserManagement.API.Controllers
         {
             _mediator = mediator;
         }
-
+       
         [HttpGet]
         [Route("GetUser/{userId}")]
+        [Authorize]
         public async Task<IActionResult> GetUser(string userId)
         {
             var response = await _mediator.Send(new GetUserRequest(userId));
@@ -34,6 +35,7 @@ namespace UserManagement.API.Controllers
         }
         [HttpGet]
         [Route("GetAllUsers")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllUsers()
         {
             var response = await _mediator.Send(new GetAllUsersRequest());
@@ -53,6 +55,7 @@ namespace UserManagement.API.Controllers
         }
         [HttpPut]
         [Route("UpdateUser")]
+        [Authorize]
         public async Task<IActionResult> UpdateUser([FromBody]UpdateUserRequest request)
         {
             await _mediator.Send(request);

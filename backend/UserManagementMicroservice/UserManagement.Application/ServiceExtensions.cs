@@ -18,7 +18,7 @@ namespace UserManagement.Application
                 configuration.RegisterServicesFromAssembly(assembly);
             });
 
-            //services.AddValidatorsFromAssembly(assembly);
+            services.AddValidatorsFromAssembly(assembly);
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
         }

@@ -50,7 +50,6 @@ namespace UserManagement.API.Controllers
         }
         [HttpPost]
         [Route("RefreshTokens")]
-        [Authorize]
         public async Task<IActionResult>RefreshTokens()
         {
             var jwtToken = Request.Cookies["JWT"];

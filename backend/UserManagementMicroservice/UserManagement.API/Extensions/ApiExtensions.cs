@@ -60,7 +60,6 @@ namespace UserManagement.API.Extensions
         {
             services.AddExceptionHandler<GlobalExceptionHandler>();
             services.AddProblemDetails();
-        
         }
      
     }

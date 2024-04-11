@@ -2,10 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using UserManagement.Application.Common.MailHelpers;
 using UserManagement.Application.Interfaces.Providers;
 using UserManagement.Application.Interfaces.Repositories;
 using UserManagement.Domain.Entities;
 using UserManagement.Infrastructure.Context;
+using UserManagement.Infrastructure.MailProviders;
 using UserManagement.Infrastructure.Repositories;
 using UserManagement.Infrastructure.TokenProviders;
 
@@ -25,9 +27,14 @@ namespace UserManagement.Infrastructure
             .AddEntityFrameworkStores<UserManagementDbContext>()
             .AddDefaultTokenProviders();
 
-            services.AddScoped<IUserRepository,UserRepository>();
-            services.AddScoped<ITokenProvider,TokenProvider>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ITokenProvider, TokenProvider>();
+            services.AddScoped<IMailProvider, MailProvider>();
 
+            var emailConfig = configuration
+            .GetSection("EmailConfiguration")
+            .Get<MailConfiguration>();
+            services.AddSingleton(emailConfig!);
         }
     }
 }
