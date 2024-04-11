@@ -18,7 +18,7 @@ namespace UserManagement.Application.Features.UserFeatures.GetAllUsers
         public async Task<List<UserResponseDto>> Handle(GetAllUsersRequest request, CancellationToken cancellationToken = default)
         {
             var users = await _userRepository.GetAllAsync();
-            if (users == null)
+            if (users is null)
             {
                 throw new InvalidOperationException("All users not found exception");
             }

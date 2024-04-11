@@ -32,7 +32,7 @@ namespace UserManagement.API.Controllers
         public async Task<IActionResult> Login([FromBody]AuthenticateUserRequest request)
         {
             var response = await _mediator.Send(request);
-            if(response != null)
+            if(response is not null)
             {
                 var cookieOptions = new CookieOptions
                 {
@@ -62,7 +62,7 @@ namespace UserManagement.API.Controllers
             }
 
             var response = await _mediator.Send(new RefreshTokensRequest(jwtToken, refreshToken));
-            if (response != null)
+            if (response is not null)
             {
                 var cookieOptions = new CookieOptions
                 {

@@ -24,7 +24,7 @@ namespace UserManagement.Application.Features.AuthenticateFeatures.Authenticate
         public async Task<AuthenticateResponseDto> Handle(AuthenticateUserRequest request, CancellationToken cancellationToken)
         {
             var user = await _userRepository.GetByUsernameAsync(_mapper.Map<User>(request).UserName!);
-            if (user == null)
+            if (user is null)
             {
                 throw new NotFoundException($"User {request.UserName} not found");
             }
@@ -33,7 +33,7 @@ namespace UserManagement.Application.Features.AuthenticateFeatures.Authenticate
                 throw new InvalidPasswordException("Incorrect password");
             }
             var userRoles = await _userRepository.GetUserRolesAsync(user);
-            if (userRoles == null)
+            if (userRoles is null)
             {
                 throw new InvalidOperationException("Roles not found");
             }

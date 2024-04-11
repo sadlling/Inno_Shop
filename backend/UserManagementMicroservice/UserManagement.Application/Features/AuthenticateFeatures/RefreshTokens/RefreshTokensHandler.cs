@@ -20,13 +20,13 @@ namespace UserManagement.Application.Features.AuthenticateFeatures.RefreshTokens
         public async Task<AuthenticateResponseDto> Handle(RefreshTokensRequest request, CancellationToken cancellationToken)
         {
             var principal = _tokenProvider.GetPrincipalFromExpiredToken(request.JwtToken);
-            if (principal == null)
+            if (principal is null)
             {
                 throw new InvalidOperationException("Principal not found");
             }
             var userId = principal.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier)?.Value ?? string.Empty;
             var userForUpdate = await _userRepository.GetByIdAsync(userId);
-            if (userForUpdate == null || userForUpdate.RefreshToken != request.RefreshToken || userForUpdate.TokenExpires < DateTime.Now)
+            if (userForUpdate is null || userForUpdate.RefreshToken != request.RefreshToken || userForUpdate.TokenExpires < DateTime.Now)
             {
                 throw new Exception("Refresh token expiried or user not found");
             }

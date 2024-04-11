@@ -17,7 +17,7 @@ namespace UserManagement.Application.Features.UserFeatures.DeleteUser
         public async Task<Unit> Handle(DeleteUserRequest request, CancellationToken cancellationToken)
         {
             var user = await _userRepository.GetByIdAsync(request.userId);
-            if (user == null)
+            if (user is null)
             {
                 throw new NotFoundException("User not found");
             }

@@ -19,10 +19,12 @@ namespace UserManagement.Application.Common.Behaviors
 
             var context = new ValidationContext<TRequest>(request);
 
-            var errorsDictionary = _validators
-            .Select(x => x.ValidateAsync(context))
-            .SelectMany(x => x.Result.Errors) //TODO add async&&
-            .Where(x => x != null)
+            var validationResults = await Task.WhenAll(_validators
+            .Select(x => x.ValidateAsync(context)));
+
+            var errorsDictionary = validationResults
+            .SelectMany(x => x.Errors) 
+            .Where(x => x is not null)
             .GroupBy(
                 x => x.PropertyName,
                 x => x.ErrorMessage,
@@ -31,7 +33,7 @@ namespace UserManagement.Application.Common.Behaviors
                     Key = propertyName,
                     Values = errorMessages.Distinct().ToArray()
                 })
-            .ToDictionary(x => x.Key,x =>x.Values);
+            .ToDictionary(x => x.Key, x => x.Values);
 
             if (errorsDictionary.Any())
                 throw new CustomValidationException(errorsDictionary);
