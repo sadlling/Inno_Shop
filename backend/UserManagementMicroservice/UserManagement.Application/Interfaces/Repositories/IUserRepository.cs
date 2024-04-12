@@ -10,5 +10,6 @@ namespace UserManagement.Application.Interfaces.Repositories
         public Task UpdateRefreshTokenAsync(User user, RefreshToken refreshToken); 
         public Task<List<string>> GetUserRolesAsync(User user);
         public Task <string> GetEmailConfirmationToken(User user);
+        public Task ConfirmEmailAsync(User user,string token);
     }
 }

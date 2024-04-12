@@ -23,9 +23,18 @@ namespace UserManagement.Infrastructure
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
 
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<User, IdentityRole>(opt =>
+            {
+                opt.Tokens.EmailConfirmationTokenProvider = "emailconfirmation";
+            })
             .AddEntityFrameworkStores<UserManagementDbContext>()
-            .AddDefaultTokenProviders();
+            .AddDefaultTokenProviders()
+            .AddTokenProvider<DataProtectorTokenProvider<User>>("emailconfirmation");
+
+            services.Configure<DataProtectionTokenProviderOptions>(options =>
+            {
+                options.TokenLifespan = TimeSpan.FromMinutes(30);
+            });
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ITokenProvider, TokenProvider>();

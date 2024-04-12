@@ -5,6 +5,7 @@ using UserManagement.Application.Features.AuthenticateFeatures.Login;
 using UserManagement.Application.Features.UserFeatures.CreateUser;
 using UserManagement.Application.Features.AuthenticateFeatures.RefreshTokens;
 using UserManagement.Application.Features.AuthenticateFeatures.Register;
+using UserManagement.Application.Features.AuthenticateFeatures.ConfirmEmail;
 
 namespace UserManagement.API.Controllers
 {
@@ -22,8 +23,9 @@ namespace UserManagement.API.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> ConfirmEmail(string token, string email)
         {
-
-            return Ok();
+            await _mediator.Send(new ConfirmEmailRequest(email, token));
+            return Ok("Mail confirmed successfully");
+            
         }
 
 
@@ -32,7 +34,7 @@ namespace UserManagement.API.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody]CreateUserRequest request)
         {
-            var response  = await _mediator.Send(new RegisterRequest(request));
+            await _mediator.Send(new RegisterRequest(request));
             return Ok("Successful registration");
         }
 

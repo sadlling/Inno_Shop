@@ -1,4 +1,5 @@
-﻿namespace UserManagement.Application.Common.MailHelpers
+﻿
+namespace UserManagement.Application.Common.MailHelpers
 {
     public class MailConfiguration
     {

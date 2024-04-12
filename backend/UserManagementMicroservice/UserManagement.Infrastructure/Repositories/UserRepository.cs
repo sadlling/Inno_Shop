@@ -24,6 +24,15 @@ namespace UserManagement.Infrastructure.Repositories
             _roleManager = roleManager;
         }
 
+        public async Task ConfirmEmailAsync(User user, string token)
+        {
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+            if (!result.Succeeded)
+            {
+                throw new InvalidOperationException("Failed to confirm email");
+            }
+        }
+
         public async Task CreateAsync(User entity)
         {
             var result = await _userManager.CreateAsync(entity);
