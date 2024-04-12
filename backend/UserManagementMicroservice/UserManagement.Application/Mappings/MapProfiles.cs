@@ -14,7 +14,7 @@ namespace UserManagement.Application.Mappings
             CreateMap<CreateUserRequest, User>()
                 .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => BCrypt.Net.BCrypt.HashPassword(src.Password)));
 
-            CreateMap<AuthenticateUserRequest, User>();
+            CreateMap<LoginRequest, User>();
 
             CreateMap<User, UserResponseDto>();
             

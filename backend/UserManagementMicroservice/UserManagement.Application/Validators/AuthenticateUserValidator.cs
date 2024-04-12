@@ -4,7 +4,7 @@ using UserManagement.Application.Interfaces.Repositories;
 
 namespace UserManagement.Application.Validators
 {
-    public class AuthenticateUserValidator: AbstractValidator<AuthenticateUserRequest>
+    public class AuthenticateUserValidator: AbstractValidator<LoginRequest>
     {
         public AuthenticateUserValidator()
         {

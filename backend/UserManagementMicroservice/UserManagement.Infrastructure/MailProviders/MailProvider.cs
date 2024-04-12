@@ -25,7 +25,7 @@ namespace UserManagement.Infrastructure.MailProviders
             emailMessage.From.Add(MailboxAddress.Parse(_emailConfiguration.From));
             emailMessage.To.Add(MailboxAddress.Parse(message.To));
             emailMessage.Subject = message.Subject;
-            emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Text) {Text = string.Format("<h2 style='color:black;'>{0}</h2>", message.Body) };
+            emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html) {Text = string.Format("<h2 style='color:black;'>{0}</h2>", message.Body) };
             return emailMessage;
         }
         private async Task SendAsync(MimeMessage message)

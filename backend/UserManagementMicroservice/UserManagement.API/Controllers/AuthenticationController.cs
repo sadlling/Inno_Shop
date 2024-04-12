@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using UserManagement.Application.Features.AuthenticateFeatures.Authenticate;
+using UserManagement.Application.Features.AuthenticateFeatures.Login;
 using UserManagement.Application.Features.UserFeatures.CreateUser;
 using UserManagement.Application.Features.AuthenticateFeatures.RefreshTokens;
 
@@ -29,7 +29,7 @@ namespace UserManagement.API.Controllers
         [HttpPost]
         [Route("Login")]
         [AllowAnonymous]
-        public async Task<IActionResult> Login([FromBody]AuthenticateUserRequest request)
+        public async Task<IActionResult> Login([FromBody]LoginRequest request)
         {
             var response = await _mediator.Send(request);
             if(response is not null)

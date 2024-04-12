@@ -74,6 +74,9 @@ namespace UserManagement.Infrastructure.Repositories
             return user!;
         }
 
+        public async Task<string> GetEmailConfirmationToken(User user)=>
+            await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
         public async Task<List<string>> GetUserRolesAsync(User user)
         {
             var roles = await _userManager.GetRolesAsync(user);

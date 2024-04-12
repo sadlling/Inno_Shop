@@ -7,21 +7,21 @@ using UserManagement.Application.Interfaces.Providers;
 using UserManagement.Application.Interfaces.Repositories;
 using UserManagement.Domain.Entities;
 
-namespace UserManagement.Application.Features.AuthenticateFeatures.Authenticate
+namespace UserManagement.Application.Features.AuthenticateFeatures.Login
 {
-    public class AuthenticateHandler : IRequestHandler<AuthenticateUserRequest, AuthenticateResponseDto>
+    public class LoginHandler : IRequestHandler<LoginRequest, AuthenticateResponseDto>
     {
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
         private readonly ITokenProvider _tokenProvider;
-        public AuthenticateHandler(IMapper mapper, IUserRepository userRepository, ITokenProvider tokenProvider)
+        public LoginHandler(IMapper mapper, IUserRepository userRepository, ITokenProvider tokenProvider)
         {
             _mapper = mapper;
             _userRepository = userRepository;
             _tokenProvider = tokenProvider;
         }
 
-        public async Task<AuthenticateResponseDto> Handle(AuthenticateUserRequest request, CancellationToken cancellationToken)
+        public async Task<AuthenticateResponseDto> Handle(LoginRequest request, CancellationToken cancellationToken)
         {
             var user = await _userRepository.GetByUsernameAsync(_mapper.Map<User>(request).UserName!);
             if (user is null)
