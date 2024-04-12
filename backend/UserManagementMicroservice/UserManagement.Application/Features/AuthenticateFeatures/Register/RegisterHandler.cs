@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
+using UserManagement.Application.Common.MailHelpers;
 using UserManagement.Application.Interfaces.Providers;
 using UserManagement.Application.Interfaces.Repositories;
 using UserManagement.Domain.Entities;
@@ -14,7 +14,6 @@ namespace UserManagement.Application.Features.AuthenticateFeatures.Register
         private readonly IUserRepository _userRepository;
         private readonly IMailProvider _mailProvider;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly LinkGenerator _linkGenerator;
         public RegisterHandler(
             IMapper mapper,
             IUserRepository userRepository,
@@ -31,12 +30,14 @@ namespace UserManagement.Application.Features.AuthenticateFeatures.Register
         {
             var user = _mapper.Map<User>(request.user);
             await _userRepository.CreateAsync(user);
-            var token = _userRepository.GetEmailConfirmationToken(user);
+            var token = await _userRepository.GetEmailConfirmationToken(user);
             
             var httpContext = _httpContextAccessor.HttpContext;
+            var confirmationLink = httpContext.Request.Scheme + "://" + httpContext.Request.Host + "/api/Authentication/ConfirmEmail?token=" + token + "&email=" + user.Email;
 
+            var message = new Message(request.user.Email, "Confirmation email link", confirmationLink);
+            await _mailProvider.SendMailAsync(message);
 
-            
             return Unit.Value;
         }
     }

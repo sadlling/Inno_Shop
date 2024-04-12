@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
-using UserManagement.Application.Features.AuthenticateFeatures.Authenticate;
+using UserManagement.Application.Features.AuthenticateFeatures.Login;
 using UserManagement.Application.Interfaces.Repositories;
 
 namespace UserManagement.Application.Validators
 {
-    public class AuthenticateUserValidator: AbstractValidator<LoginRequest>
+    public class LoginUserValidator: AbstractValidator<LoginRequest>
     {
-        public AuthenticateUserValidator()
+        public LoginUserValidator()
         {
             RuleFor(user => user.UserName).
                NotEmpty()

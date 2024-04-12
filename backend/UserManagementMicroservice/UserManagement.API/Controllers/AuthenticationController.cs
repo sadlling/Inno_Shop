@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using UserManagement.Application.Features.AuthenticateFeatures.Login;
 using UserManagement.Application.Features.UserFeatures.CreateUser;
 using UserManagement.Application.Features.AuthenticateFeatures.RefreshTokens;
+using UserManagement.Application.Features.AuthenticateFeatures.Register;
 
 namespace UserManagement.API.Controllers
 {
@@ -16,14 +17,23 @@ namespace UserManagement.API.Controllers
         {
             _mediator = mediator;
         }
+        [HttpGet]
+        [Route("ConfirmEmail")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmEmail(string token, string email)
+        {
+
+            return Ok();
+        }
+
 
         [HttpPost]
         [Route("Register")]
         [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody]CreateUserRequest request)
         {
-            var response  = await _mediator.Send(request);
-            return Ok(response);
+            var response  = await _mediator.Send(new RegisterRequest(request));
+            return Ok("Successful registration");
         }
 
         [HttpPost]
@@ -48,6 +58,7 @@ namespace UserManagement.API.Controllers
             }
             return Unauthorized();
         }
+
         [HttpPost]
         [Route("RefreshTokens")]
         public async Task<IActionResult>RefreshTokens()

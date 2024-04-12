@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using UserManagement.Application.DTOs;
-using UserManagement.Application.Features.AuthenticateFeatures.Authenticate;
+using UserManagement.Application.Features.AuthenticateFeatures.Login;
 using UserManagement.Application.Features.UserFeatures.CreateUser;
 using UserManagement.Application.Features.UserFeatures.UpdateUser;
 using UserManagement.Domain.Entities;

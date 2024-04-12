@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using UserManagement.Application.Common.Behaviors;
 
@@ -20,6 +21,7 @@ namespace UserManagement.Application
 
             services.AddValidatorsFromAssembly(assembly);
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
         }
     }
