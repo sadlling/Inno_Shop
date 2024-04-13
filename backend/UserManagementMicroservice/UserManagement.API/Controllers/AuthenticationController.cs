@@ -7,6 +7,7 @@ using UserManagement.Application.Features.AuthenticateFeatures.RefreshTokens;
 using UserManagement.Application.Features.AuthenticateFeatures.Register;
 using UserManagement.Application.Features.AuthenticateFeatures.ConfirmEmail;
 using UserManagement.Application.Features.AuthenticateFeatures.ForgotPassword;
+using UserManagement.Application.Features.AuthenticateFeatures.ResetPassword;
 
 namespace UserManagement.API.Controllers
 {
@@ -35,6 +36,14 @@ namespace UserManagement.API.Controllers
         {
             await _mediator.Send(request);
             return Ok("Check email");
+        }
+
+        [HttpPost]
+        [Route("ResetPassword")]
+        //[Authorize]
+        public async Task<IActionResult> ResetPassword([FromBody]ResetPasswordRequest request)
+        {
+            return Ok();
         }
 
         [HttpPost]

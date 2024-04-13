@@ -42,7 +42,7 @@ namespace UserManagement.Application.Features.AuthenticateFeatures.ForgotPasswor
                 controller: "Authentication",
                 values: new { token, email = user.Email });
 
-            var message = new Message(user.Email!, "Confirmation email link", resetLink ?? "");
+            var message = new Message(user.Email!, "Reset password link", resetLink ?? "");
             await _mailProvider.SendMailAsync(message);
 
             return Unit.Value;
