@@ -30,7 +30,7 @@ namespace UserManagement.Application.Features.AuthenticateFeatures.ForgotPasswor
         public async Task<Unit> Handle(ForgotPasswordRequest request, CancellationToken cancellationToken)
         {
             var user = await _userRepository.GetByEmailAsync(request.email);
-            if (user == null)
+            if (user is null)
             {
                 throw new NotFoundException($"User with email {request.email} not found");
             }

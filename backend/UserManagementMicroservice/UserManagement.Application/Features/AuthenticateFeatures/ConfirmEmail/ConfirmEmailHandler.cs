@@ -15,7 +15,7 @@ namespace UserManagement.Application.Features.AuthenticateFeatures.ConfirmEmail
         public async Task<Unit> Handle(ConfirmEmailRequest request, CancellationToken cancellationToken = default)
         {
             var user = await _userRepository.GetByEmailAsync(request.userEmail);
-            if (user == null)
+            if (user is null)
             {
                 throw new NotFoundException($"User with email {request.userEmail} not found");
             }

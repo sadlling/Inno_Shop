@@ -37,13 +37,20 @@ namespace UserManagement.API.Controllers
             await _mediator.Send(request);
             return Ok("Check email");
         }
-
+        [HttpGet]
+        [Route("ResetPassword")]
+        public IActionResult ResetPassword(string token,string email)
+        {
+            var model = new ResetPasswordRequest(string.Empty,string.Empty,email,token);
+            return Ok(model);
+        }
         [HttpPost]
         [Route("ResetPassword")]
         //[Authorize]
         public async Task<IActionResult> ResetPassword([FromBody]ResetPasswordRequest request)
         {
-            return Ok();
+            await _mediator.Send(request);
+            return Ok("Password reset successfully");
         }
 
         [HttpPost]

@@ -14,7 +14,7 @@ namespace UserManagement.Application.Validators
                 .Matches(@"^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$")
                 .WithMessage("Password must be contain one number, one uppercase letters,1 lowercase letters,1 non-alpha numeric number,8-16 characters with no space");
             RuleFor(request => request.confirmPassword)
-                .Equal(request=>request.password)
+                .Equal(request=>request.password).WithMessage("Password and confirm password must be match")
                 .NotEmpty();
                 
         }
