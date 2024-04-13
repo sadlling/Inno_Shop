@@ -83,13 +83,26 @@ namespace UserManagement.Infrastructure.Repositories
             return user!;
         }
 
-        public async Task<string> GetEmailConfirmationToken(User user)=>
+        public async Task<string> GetEmailConfirmationTokenAsync(User user)=>
             await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
+        public async Task<string> GetPasswordResetTokenAsync(User user) =>
+            await _userManager.GeneratePasswordResetTokenAsync(user);
+        
 
         public async Task<List<string>> GetUserRolesAsync(User user)
         {
             var roles = await _userManager.GetRolesAsync(user);
             return roles.ToList();
+        }
+
+        public async Task ResetPasswordAsync(User user, string token, string newPassword)
+        {
+           var result = await _userManager.ResetPasswordAsync(user, token, newPassword);
+            if(!result.Succeeded) 
+            {
+                throw new InvalidOperationException("Failed to reset password");
+            }
         }
 
         public async Task UpdateAsync(User entity)

@@ -19,7 +19,7 @@ namespace UserManagement.Application.Features.AuthenticateFeatures.ConfirmEmail
             {
                 throw new NotFoundException($"User with email {request.userEmail} not found");
             }
-            await _userRepository.ConfirmEmailAsync(user, request.token.Replace(" ",""));
+            await _userRepository.ConfirmEmailAsync(user, request.token);
 
             return Unit.Value;
         }

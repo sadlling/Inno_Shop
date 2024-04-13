@@ -6,6 +6,7 @@ using UserManagement.Application.Features.UserFeatures.CreateUser;
 using UserManagement.Application.Features.AuthenticateFeatures.RefreshTokens;
 using UserManagement.Application.Features.AuthenticateFeatures.Register;
 using UserManagement.Application.Features.AuthenticateFeatures.ConfirmEmail;
+using UserManagement.Application.Features.AuthenticateFeatures.ForgotPassword;
 
 namespace UserManagement.API.Controllers
 {
@@ -27,7 +28,14 @@ namespace UserManagement.API.Controllers
             return Ok("Mail confirmed successfully");
             
         }
-
+        [HttpPost]
+        [Route("ForgotPassword")]
+        //[Authorize]
+        public async Task<IActionResult> ForgotPassword([FromBody]ForgotPasswordRequest request)
+        {
+            await _mediator.Send(request);
+            return Ok("Check email");
+        }
 
         [HttpPost]
         [Route("Register")]
