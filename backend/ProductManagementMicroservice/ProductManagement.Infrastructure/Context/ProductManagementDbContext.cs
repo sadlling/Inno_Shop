@@ -1,13 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using UserManagement.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using ProductManagement.Domain.Entities;
 
-namespace UserManagement.Infrastructure.Context
+namespace ProductManagement.Infrastructure.Context
 {
-    public class UserManagementDbContext : IdentityDbContext<User>
+    public class ProductManagementDbContext:DbContext
     {
-        public UserManagementDbContext(DbContextOptions<UserManagementDbContext> options) : base(options)
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
+
+        public ProductManagementDbContext(DbContextOptions<ProductManagementDbContext> options) : base(options) 
         {
             //try
             //{
@@ -27,19 +28,11 @@ namespace UserManagement.Infrastructure.Context
             //catch (Exception ex)
             //{
             //    Console.WriteLine(ex.Message);
-            //}
+            //} 
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<IdentityRole>().HasData(
-                [
-                   new IdentityRole {Name = "Admin",NormalizedName="Admin", ConcurrencyStamp = Guid.NewGuid().ToString()},
-                   new IdentityRole {Name = "User",NormalizedName = "User", ConcurrencyStamp = Guid.NewGuid().ToString()},
-                ]);
         }
     }
-
 }
