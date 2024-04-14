@@ -3,7 +3,7 @@
 namespace ProductManagement.Application.Features.CategoryFeatures.CreateCategory
 {
     public record CreateCategoryRequest(
-        string Name,
-        string? Description):IRequest<Unit>;
+        string name,
+        string? description):IRequest<Unit>;
 
 }

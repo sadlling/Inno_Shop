@@ -1,13 +1,13 @@
 ﻿using FluentValidation;
-using ProductManagement.Application.Features.CategoryFeatures.CreateCategory;
+using ProductManagement.Application.Features.CategoryFeatures.UpdateCategory;
 using ProductManagement.Application.Interfaces.Repositories;
 
 namespace ProductManagement.Application.Validators
 {
-    public class CreateCategoryValidator:AbstractValidator<CreateCategoryRequest>
+    public class UpdateCategoryValidator:AbstractValidator<UpdateCategoryRequest>
     {
         private readonly ICategoryRepository _categoryRepository;
-        public CreateCategoryValidator(ICategoryRepository categoryRepository) 
+        public UpdateCategoryValidator(ICategoryRepository categoryRepository)
         {
             _categoryRepository = categoryRepository;
 
@@ -27,6 +27,5 @@ namespace ProductManagement.Application.Validators
             var category = await _categoryRepository.GetByNameAsync(categoryName);
             return category == null;
         }
-
     }
 }
