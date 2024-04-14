@@ -44,7 +44,7 @@ namespace ProductManagement.Infrastructure.Repositories
         {
            return await _context.Categories
                 .AsNoTracking()
-                .FirstOrDefaultAsync(x=>x.Name.ToLower() == name.ToLower()) ?? null!;
+                .FirstOrDefaultAsync(x=>x.Name.ToLower().Equals(name.ToLower())) ?? null!;
         }
 
         public async Task UpdateAsync(Category entity)
