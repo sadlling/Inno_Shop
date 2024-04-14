@@ -13,7 +13,7 @@ namespace ProductManagement.Infrastructure
             {
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
-
+            
         }
     }
 }

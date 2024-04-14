@@ -2,8 +2,8 @@
 {
     public class BaseEntity
     {
-        Guid Id { get; set; }
-        DateTimeOffset CreatedAt { get; set; }
-        DateTimeOffset UpdatedAt { get; set; }
+        public Guid Id { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
+        public DateTimeOffset UpdatedAt { get; set; }
     }
 }
