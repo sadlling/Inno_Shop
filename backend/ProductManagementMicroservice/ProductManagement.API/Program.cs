@@ -1,6 +1,7 @@
 using ProductManagement.Infrastructure;
 using ProductManagement.Application;
 using ProductManagement.API.Extensions;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 

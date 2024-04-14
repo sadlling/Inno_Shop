@@ -40,6 +40,13 @@ namespace ProductManagement.Infrastructure.Repositories
                 .FirstOrDefaultAsync(x => x.Id == id) ?? null!;
         }
 
+        public async Task<Category> GetByNameAsync(string name)
+        {
+           return await _context.Categories
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x=>x.Name.ToLower() == name.ToLower()) ?? null!;
+        }
+
         public async Task UpdateAsync(Category entity)
         {
             await _context.Categories

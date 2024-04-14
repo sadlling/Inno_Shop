@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Configuration;
 using ProductManagement.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
+using ProductManagement.Application.Interfaces.Repositories;
+using ProductManagement.Infrastructure.Repositories;
 
 namespace ProductManagement.Infrastructure
 {
@@ -13,7 +15,10 @@ namespace ProductManagement.Infrastructure
             {
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
-            
+
+            services.AddScoped<ICategoryRepository,CategoryRepository>();
+            services.AddScoped<IProductRepository,ProductRepository>();
+
         }
     }
 }
