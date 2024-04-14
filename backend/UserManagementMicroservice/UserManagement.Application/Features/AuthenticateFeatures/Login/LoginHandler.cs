@@ -28,7 +28,7 @@ namespace UserManagement.Application.Features.AuthenticateFeatures.Login
             {
                 throw new NotFoundException($"User {request.UserName} not found");
             }
-            if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
+            if (!await _userRepository.VerifyPassword(user,request.Password))
             {
                 throw new InvalidPasswordException("Incorrect password");
             }

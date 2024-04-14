@@ -12,7 +12,7 @@ namespace UserManagement.Application.Mappings
         public MapProfiles() {
 
             CreateMap<CreateUserRequest, User>()
-                .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => BCrypt.Net.BCrypt.HashPassword(src.Password)));
+                .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => src.Password));
 
             CreateMap<LoginRequest, User>();
 

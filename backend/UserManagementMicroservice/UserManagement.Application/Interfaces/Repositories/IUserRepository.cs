@@ -13,5 +13,6 @@ namespace UserManagement.Application.Interfaces.Repositories
         public Task ConfirmEmailAsync(User user,string token);
         public Task ResetPasswordAsync(User user,string token,string newPassword);
         public Task<string> GetPasswordResetTokenAsync(User user);
+        public Task<bool> VerifyPassword(User user, string password);
     }
 }

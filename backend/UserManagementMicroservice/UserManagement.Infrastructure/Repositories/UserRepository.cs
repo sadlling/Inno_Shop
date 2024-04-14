@@ -35,7 +35,7 @@ namespace UserManagement.Infrastructure.Repositories
 
         public async Task CreateAsync(User entity)
         {
-            var result = await _userManager.CreateAsync(entity);
+            var result = await _userManager.CreateAsync(entity,entity.PasswordHash!);
             if (!result.Succeeded)
             {
                 throw new InvalidOperationException("Failed creation. Exception from repository");
@@ -83,12 +83,12 @@ namespace UserManagement.Infrastructure.Repositories
             return user!;
         }
 
-        public async Task<string> GetEmailConfirmationTokenAsync(User user)=>
+        public async Task<string> GetEmailConfirmationTokenAsync(User user) =>
             await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
         public async Task<string> GetPasswordResetTokenAsync(User user) =>
             await _userManager.GeneratePasswordResetTokenAsync(user);
-        
+
 
         public async Task<List<string>> GetUserRolesAsync(User user)
         {
@@ -98,8 +98,9 @@ namespace UserManagement.Infrastructure.Repositories
 
         public async Task ResetPasswordAsync(User user, string token, string newPassword)
         {
-           var result = await _userManager.ResetPasswordAsync(user, token, newPassword);
-            if(!result.Succeeded) 
+
+            var result = await _userManager.ResetPasswordAsync(user, token, newPassword);
+            if (!result.Succeeded)
             {
                 throw new InvalidOperationException("Failed to reset password");
             }
@@ -140,5 +141,9 @@ namespace UserManagement.Infrastructure.Repositories
             }
 
         }
+
+        public async Task<bool> VerifyPassword(User user, string password) =>
+            await _userManager.CheckPasswordAsync(user, password);
+
     }
 }
