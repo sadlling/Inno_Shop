@@ -48,6 +48,7 @@ namespace ProductManagement.Infrastructure.Repositories
                 .SetProperty(p => p.Description, entity.Description)
                 .SetProperty(p => p.IsEnabled, entity.IsEnabled)
                 .SetProperty(p => p.CategoryId, entity.CategoryId)
+                .SetProperty(p=>p.UpdatedAt, DateTimeOffset.Now)
                 );
         }
     }
