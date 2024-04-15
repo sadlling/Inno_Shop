@@ -2,5 +2,6 @@
 
 namespace ProductManagement.Application.Features.ProductFeatures.DeleteProduct
 {
-    public record DeleteProductRequest(Guid id):IRequest<Unit>;
+    public record DeleteProductRequest(
+        Guid productId,string userId):IRequest<Unit>;
 }

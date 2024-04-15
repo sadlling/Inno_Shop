@@ -1,31 +1,33 @@
 ﻿using FluentValidation;
 using ProductManagement.Application.DTOs;
+using ProductManagement.Application.Features.ProductFeatures.CreateProduct;
 using ProductManagement.Application.Interfaces.Repositories;
 
 namespace ProductManagement.Application.Validators
 {
-    public class CreateProductValidator:AbstractValidator<CreateProductDto>
+    public class CreateProductValidator : AbstractValidator<CreateProductRequest>
     {
         private readonly ICategoryRepository _categoryRepository;
-        public CreateProductValidator(ICategoryRepository categoryRepository) 
+        public CreateProductValidator(ICategoryRepository categoryRepository)
         {
             _categoryRepository = categoryRepository;
 
-            RuleFor(product => product.name)
+            RuleFor(req => req.product.name)
                 .NotEmpty()
+                .MinimumLength(1)
                 .MaximumLength(20);
 
-            RuleFor(product => product.description)
-                .NotEmpty()
+            RuleFor(req => req.product.description)
+                .MinimumLength(1)
                 .MaximumLength(100);
-        
-            RuleFor(product=>product.cost)
-                .NotEmpty()
-                .GreaterThanOrEqualTo(0);
 
-            RuleFor(product => product.isEnabled)
+            RuleFor(req => req.product.cost)
+                .NotEmpty()
+                .GreaterThanOrEqualTo(1);
+
+            RuleFor(req => req.product.isEnabled)
                .NotEmpty();
-            RuleFor(product => product.categoryName)
+            RuleFor(req => req.product.categoryName)
                 .NotEmpty()
                 .MustAsync(IsExistCategoryName).WithMessage("Category not exists");
         }
