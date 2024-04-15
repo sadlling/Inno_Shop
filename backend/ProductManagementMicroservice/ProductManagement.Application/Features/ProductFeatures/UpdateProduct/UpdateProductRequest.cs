@@ -1,12 +1,9 @@
 ﻿using MediatR;
+using ProductManagement.Application.DTOs;
 
 namespace ProductManagement.Application.Features.ProductFeatures.UpdateProduct
 {
     public record UpdateProductRequest(
-        Guid id,
-        string name,
-        string? description,
-        float cost,
-        bool isEnabled,
-        string categoryName) :IRequest<Unit>;
+        UpdateProductDto product,
+        string userId) :IRequest<Unit>;
 }

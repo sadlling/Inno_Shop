@@ -69,9 +69,10 @@ namespace ProductManagement.API.Controllers
 
         [HttpPut]
         [Route("UpdateProduct")]
-        public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductRequest request)
+        public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductDto request)
         {
-            await _mediator.Send(request);
+            var tempUserId = "84e1d672-7b69-4de6-9f87-0d683635bba3"; //TODO: remove after tests
+            await _mediator.Send(new UpdateProductRequest(request, User.FindFirstValue(ClaimTypes.NameIdentifier) ?? tempUserId));
             return Ok("Product updated");
         }
 

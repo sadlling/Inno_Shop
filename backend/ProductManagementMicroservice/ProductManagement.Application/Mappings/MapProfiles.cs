@@ -30,11 +30,12 @@ namespace ProductManagement.Application.Mappings
                 .ForPath(dest => dest.categoryName, opt => opt.MapFrom(src => src.Category.Name));
 
             CreateMap<UpdateProductRequest,Product>()
-                .ForPath(dest => dest.Category.Name, opt => opt.MapFrom(src => src.categoryName))
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.name))
-                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.description))
-                .ForMember(dest => dest.Cost, opt => opt.MapFrom(src => src.cost))
-                .ForMember(dest => dest.IsEnabled, opt => opt.MapFrom(src => src.isEnabled));
+                .ForPath(dest => dest.Category.Name, opt => opt.MapFrom(src => src.product.categoryName))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.product.id))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.product.name))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.product.description))
+                .ForMember(dest => dest.Cost, opt => opt.MapFrom(src => src.product.cost))
+                .ForMember(dest => dest.IsEnabled, opt => opt.MapFrom(src => src.product.isEnabled));
 
 
 

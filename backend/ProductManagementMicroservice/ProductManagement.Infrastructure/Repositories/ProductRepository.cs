@@ -50,7 +50,7 @@ namespace ProductManagement.Infrastructure.Repositories
         }
 
         public async Task UpdateAsync(Product entity)
-        {
+        { 
             await _context.Products
                 .Where(x => x.Id == entity.Id)
                 .ExecuteUpdateAsync(s => s

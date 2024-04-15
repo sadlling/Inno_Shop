@@ -1,10 +1,11 @@
 ﻿using FluentValidation;
+using ProductManagement.Application.DTOs;
 using ProductManagement.Application.Features.ProductFeatures.UpdateProduct;
 using ProductManagement.Application.Interfaces.Repositories;
 
 namespace ProductManagement.Application.Validators
 {
-    public class UpdateProductValidator:AbstractValidator<UpdateProductRequest>
+    public class UpdateProductValidator:AbstractValidator<UpdateProductDto>
     {
         private readonly ICategoryRepository _categoryRepository;
         public UpdateProductValidator(ICategoryRepository categoryRepository)
