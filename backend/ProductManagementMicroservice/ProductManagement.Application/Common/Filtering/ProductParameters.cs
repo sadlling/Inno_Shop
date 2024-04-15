@@ -4,10 +4,12 @@ namespace ProductManagement.Application.Common.Filtering
 {
     public class ProductParameters:QueryStringParameters
     {
-        public float MinCost { get; set; }
-        public float MaxCost { get; set; }
-        public bool IsEnabled { get; set; } = true;
-        public bool ValidCostRange => MinCost <= MaxCost;  
+        public string? Name { get; set; }
+        public float? MinCost { get; set; } = 0;
+        public float? MaxCost { get; set; } = float.MaxValue;
+        public bool? IsEnabled { get; set; }
+
+        public bool IsValidCostRange() => MinCost <= MaxCost;  
 
     }
 }
