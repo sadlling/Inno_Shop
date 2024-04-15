@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using ProductManagement.Application.Common.Filtering;
 using ProductManagement.Application.Common.Paging;
 using ProductManagement.Application.DTOs;
 using ProductManagement.Application.Features.ProductFeatures.CreateProduct;
 using ProductManagement.Application.Features.ProductFeatures.DeleteProduct;
+using ProductManagement.Application.Features.ProductFeatures.FilterProducts;
 using ProductManagement.Application.Features.ProductFeatures.GetAllProducts;
 using ProductManagement.Application.Features.ProductFeatures.GetProduct;
 using ProductManagement.Application.Features.ProductFeatures.UpdateProduct;
@@ -29,6 +31,28 @@ namespace ProductManagement.API.Controllers
         public async Task<IActionResult> GetAllProducts([FromQuery] QueryStringParameters parameters)
         {
             var response = await _mediator.Send(new GetAllProductsRequest(parameters));
+            if (response is not null)
+            {
+                var metadata = new
+                {
+                    response.TotalCount,
+                    response.PageSize,
+                    response.CurrentPage,
+                    response.TotalPages,
+                    response.HasNext,
+                    response.HasPrevious
+                };
+                Response.Headers.Append("X-Pagination", JsonConvert.SerializeObject(metadata));
+                return Ok(response);
+            }
+            return NotFound("Products not found");
+        }
+
+        [HttpGet]
+        [Route("GetProductByFilters")]
+        public async Task<IActionResult> GetAllProducts([FromQuery] ProductParameters parameters)
+        {
+            var response = await _mediator.Send(new GetProductsByFilterQuery(parameters));
             if (response is not null)
             {
                 var metadata = new

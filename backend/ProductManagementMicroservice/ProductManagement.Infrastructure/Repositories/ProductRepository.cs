@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ProductManagement.Application.Common.Paging;
 using ProductManagement.Application.Interfaces.Repositories;
 using ProductManagement.Domain.Entities;
 using ProductManagement.Infrastructure.Context;
+using System.Linq.Expressions;
 
 namespace ProductManagement.Infrastructure.Repositories
 {
@@ -23,6 +25,15 @@ namespace ProductManagement.Infrastructure.Repositories
             await _context.Products.
                 Where(x => x.Id == entity.Id)
                 .ExecuteDeleteAsync();
+        }
+
+        public async Task<List<Product>> FindByConditionAsync(Expression<Func<Product, bool>> expression)
+        {
+            return await _context.Products
+                .Include(x => x.Category)
+                .Where(expression)
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task<Product> FindByNameAsync(string Name)
@@ -50,7 +61,7 @@ namespace ProductManagement.Infrastructure.Repositories
         }
 
         public async Task UpdateAsync(Product entity)
-        { 
+        {
             await _context.Products
                 .Where(x => x.Id == entity.Id)
                 .ExecuteUpdateAsync(s => s
