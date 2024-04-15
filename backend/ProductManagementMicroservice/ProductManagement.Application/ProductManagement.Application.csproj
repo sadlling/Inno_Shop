@@ -11,7 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\ProductFeatures\" />
+    <Folder Include="Features\ProductFeatures\GetProduct\" />
+    <Folder Include="Features\ProductFeatures\GetAllProducts\" />
+    <Folder Include="Features\ProductFeatures\UpdateProduct\" />
+    <Folder Include="Features\ProductFeatures\DeleteProduct\" />
+    <Folder Include="Features\ProductFeatures\FilterProducts\" />
   </ItemGroup>
 
   <ItemGroup>

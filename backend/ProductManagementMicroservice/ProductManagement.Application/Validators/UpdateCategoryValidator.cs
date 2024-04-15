@@ -25,7 +25,7 @@ namespace ProductManagement.Application.Validators
         private async Task<bool> IsUniqueCategoryName(string categoryName, CancellationToken cancellationToken = default)
         {
             var category = await _categoryRepository.GetByNameAsync(categoryName);
-            return category == null;
+            return category is null;
         }
     }
 }
