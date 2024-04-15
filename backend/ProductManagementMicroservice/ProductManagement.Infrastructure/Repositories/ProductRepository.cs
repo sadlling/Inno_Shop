@@ -28,6 +28,7 @@ namespace ProductManagement.Infrastructure.Repositories
         public async Task<Product> FindByNameAsync(string Name)
         {
             return await _context.Products
+                .Include(x => x.Category)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Name.Equals(Name)) ?? null!;
         }
@@ -35,6 +36,7 @@ namespace ProductManagement.Infrastructure.Repositories
         public async Task<List<Product>> GetAllAsync()
         {
             return await _context.Products
+                .Include(x => x.Category)
                 .AsNoTracking()
                 .ToListAsync();
         }
@@ -42,6 +44,7 @@ namespace ProductManagement.Infrastructure.Repositories
         public async Task<Product> GetByIdAsync(Guid id)
         {
             return await _context.Products
+               .Include(x => x.Category)
                .AsNoTracking()
                .FirstOrDefaultAsync(x => x.Id == id) ?? null!;
         }
