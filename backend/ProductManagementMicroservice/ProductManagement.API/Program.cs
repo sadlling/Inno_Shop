@@ -17,6 +17,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructureLayer(builder.Configuration);
 builder.Services.AddApplicationLayer();
 builder.Services.AddGlobalExceptionHandler();
+builder.Services.AddApiAuthentication(builder.Configuration);
 builder.Services.AddApiCorsPolisy();
 
 var app = builder.Build();

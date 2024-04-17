@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -28,6 +29,7 @@ namespace ProductManagement.API.Controllers
 
         [HttpGet]
         [Route("GetAllProducts")]
+        [Authorize]
         public async Task<IActionResult> GetAllProducts([FromQuery] QueryStringParameters parameters)
         {
             var response = await _mediator.Send(new GetAllProductsRequest(parameters));
@@ -50,6 +52,7 @@ namespace ProductManagement.API.Controllers
 
         [HttpGet]
         [Route("GetProductByFilters")]
+        [Authorize]
         public async Task<IActionResult> GetAllProducts([FromQuery] ProductParameters parameters)
         {
             var response = await _mediator.Send(new GetProductsByFilterQuery(parameters));
@@ -72,6 +75,7 @@ namespace ProductManagement.API.Controllers
 
         [HttpGet]
         [Route("GetProductById")]
+        [Authorize]
         public async Task<IActionResult> GetProductById([FromQuery] GetProductRequest request)
         {
             var response = await _mediator.Send(request);
@@ -84,28 +88,29 @@ namespace ProductManagement.API.Controllers
 
         [HttpPost]
         [Route("CreateProduct")]
+        [Authorize]
         public async Task<IActionResult> CreateProduct([FromBody] CreateProductDto request)
         {
-            var tempUserId = "84e1d672-7b69-4de6-9f87-0d683635bba3"; //TODO: remove after tests
-            await _mediator.Send(new CreateProductRequest(request, User.FindFirstValue(ClaimTypes.NameIdentifier) ?? tempUserId));
+            
+            await _mediator.Send(new CreateProductRequest(request, User.FindFirstValue(ClaimTypes.NameIdentifier)!));
             return Created();
         }
 
         [HttpPut]
         [Route("UpdateProduct")]
+        [Authorize]
         public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductDto request)
         {
-            var tempUserId = "84e1d672-7b69-4de6-9f87-0d683635bba3"; //TODO: remove after tests
-            await _mediator.Send(new UpdateProductRequest(request, User.FindFirstValue(ClaimTypes.NameIdentifier) ?? tempUserId));
+            await _mediator.Send(new UpdateProductRequest(request, User.FindFirstValue(ClaimTypes.NameIdentifier)!));
             return Ok("Product updated");
         }
 
         [HttpDelete]
         [Route("DeleteProduct")]
+        [Authorize]
         public async Task<IActionResult> DeleteProduct([FromQuery] Guid Id)
         {
-            var tempUserId = "84e1d672-7b69-4de6-9f87-0d683635bba3"; //TODO: remove after tests
-            await _mediator.Send(new DeleteProductRequest(Id, User.FindFirstValue(ClaimTypes.NameIdentifier) ?? tempUserId)); ;
+            await _mediator.Send(new DeleteProductRequest(Id, User.FindFirstValue(ClaimTypes.NameIdentifier)!)); ;
             return Ok("Product deleted");
         }
     }
