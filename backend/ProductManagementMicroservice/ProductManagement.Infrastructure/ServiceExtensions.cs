@@ -13,7 +13,8 @@ namespace ProductManagement.Infrastructure
         {
             services.AddDbContext<ProductManagementDbContext>(options =>
             {
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+                options.UseSqlServer(Environment.GetEnvironmentVariable("Docker_ConnectionString")
+                    ??configuration.GetConnectionString("DefaultConnection"));
             });
 
             services.AddScoped<ICategoryRepository,CategoryRepository>();
