@@ -29,7 +29,7 @@ namespace ProductManagement.API.Controllers
 
         [HttpGet]
         [Route("GetAllProducts")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> GetAllProducts([FromQuery] QueryStringParameters parameters)
         {
             var response = await _mediator.Send(new GetAllProductsRequest(parameters));
@@ -52,7 +52,7 @@ namespace ProductManagement.API.Controllers
 
         [HttpGet]
         [Route("GetProductByFilters")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> GetAllProducts([FromQuery] ProductParameters parameters)
         {
             var response = await _mediator.Send(new GetProductsByFilterQuery(parameters));
@@ -75,7 +75,7 @@ namespace ProductManagement.API.Controllers
 
         [HttpGet]
         [Route("GetProductById")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> GetProductById([FromQuery] GetProductRequest request)
         {
             var response = await _mediator.Send(request);
@@ -88,7 +88,7 @@ namespace ProductManagement.API.Controllers
 
         [HttpPost]
         [Route("CreateProduct")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> CreateProduct([FromBody] CreateProductDto request)
         {
             
@@ -98,7 +98,7 @@ namespace ProductManagement.API.Controllers
 
         [HttpPut]
         [Route("UpdateProduct")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductDto request)
         {
             await _mediator.Send(new UpdateProductRequest(request, User.FindFirstValue(ClaimTypes.NameIdentifier)!));
@@ -107,7 +107,7 @@ namespace ProductManagement.API.Controllers
 
         [HttpDelete]
         [Route("DeleteProduct")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> DeleteProduct([FromQuery] Guid Id)
         {
             await _mediator.Send(new DeleteProductRequest(Id, User.FindFirstValue(ClaimTypes.NameIdentifier)!)); ;
