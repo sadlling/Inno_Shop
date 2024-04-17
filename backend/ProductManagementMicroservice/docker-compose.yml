@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+  productmanagement-db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+    - 8002:1433
+    environment:
+    - ACCEPT_EULA=Y
+    - MSSQL_SA_PASSWORD=myStong_Password123%
+  productmanagement-api:
+    image: ${DOCKER_REGISTRY-}productmanagementapi
+    build:
+      context: .
+      dockerfile: ProductManagement.API/Dockerfile
+    ports:
+    - 8080:80
+    depends_on:
+    - productmanagement-db
+    environment:
+      - Docker_ConnectionString=productmanagement-db,1433;Database=product_management;User Id=sa;Password=myStong_Password123%;TrustServerCertificate=True;
+     
