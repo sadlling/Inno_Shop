@@ -91,8 +91,8 @@ namespace ProductManagement.API.Controllers
         //[Authorize]
         public async Task<IActionResult> CreateProduct([FromBody] CreateProductDto request)
         {
-            
-            await _mediator.Send(new CreateProductRequest(request, User.FindFirstValue(ClaimTypes.NameIdentifier)!));
+            string tempUserId = "5b58a78e-59f8-459e-bb50-5ba1d51c0315";
+            await _mediator.Send(new CreateProductRequest(request, User.FindFirstValue(ClaimTypes.NameIdentifier)?? tempUserId));
             return Created();
         }
 
@@ -101,7 +101,8 @@ namespace ProductManagement.API.Controllers
         //[Authorize]
         public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductDto request)
         {
-            await _mediator.Send(new UpdateProductRequest(request, User.FindFirstValue(ClaimTypes.NameIdentifier)!));
+            string tempUserId = "5b58a78e-59f8-459e-bb50-5ba1d51c0315";
+            await _mediator.Send(new UpdateProductRequest(request, User.FindFirstValue(ClaimTypes.NameIdentifier)?? tempUserId));
             return Ok("Product updated");
         }
 
@@ -110,6 +111,7 @@ namespace ProductManagement.API.Controllers
         //[Authorize]
         public async Task<IActionResult> DeleteProduct([FromQuery] Guid Id)
         {
+
             await _mediator.Send(new DeleteProductRequest(Id, User.FindFirstValue(ClaimTypes.NameIdentifier)!)); ;
             return Ok("Product deleted");
         }
