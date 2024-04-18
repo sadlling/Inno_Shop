@@ -4,7 +4,7 @@
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
     <DockerPublishLocally>False</DockerPublishLocally>
-    <ProjectGuid>eb71f2ef-8749-4a2c-ad0d-8a38a07fe443</ProjectGuid>
+    <ProjectGuid>7a36b960-d3fe-4686-9532-3383122edbc7</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
     <DockerServiceName>apigeteway</DockerServiceName>
