@@ -96,6 +96,11 @@ namespace UserManagement.Infrastructure.Repositories
             return roles.ToList();
         }
 
+        public async Task<bool> IsEmailConfirmed(User user)
+        {
+            return await _userManager.IsEmailConfirmedAsync(user);
+        }
+
         public async Task ResetPasswordAsync(User user, string token, string newPassword)
         {
 

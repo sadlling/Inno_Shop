@@ -14,5 +14,6 @@ namespace UserManagement.Application.Interfaces.Repositories
         public Task ResetPasswordAsync(User user,string token,string newPassword);
         public Task<string> GetPasswordResetTokenAsync(User user);
         public Task<bool> VerifyPassword(User user, string password);
+        public Task<bool> IsEmailConfirmed(User user);
     }
 }

@@ -32,6 +32,10 @@ namespace UserManagement.Application.Features.AuthenticateFeatures.Login
             {
                 throw new InvalidPasswordException("Incorrect password");
             }
+            if(!await _userRepository.IsEmailConfirmed(user))
+            {
+                throw new ConfirmEmailException("Email not confirmed");
+            }
             var userRoles = await _userRepository.GetUserRolesAsync(user);
             if (userRoles is null)
             {
