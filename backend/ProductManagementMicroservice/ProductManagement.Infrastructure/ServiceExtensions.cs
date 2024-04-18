@@ -9,16 +9,16 @@ namespace ProductManagement.Infrastructure
 {
     public static class ServiceExtensions
     {
-        public static void AddInfrastructureLayer(this IServiceCollection services, IConfiguration configuration) 
+        public static void AddInfrastructureLayer(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ProductManagementDbContext>(options =>
             {
-                options.UseSqlServer(Environment.GetEnvironmentVariable("Docker_ConnectionString")
-                    ??configuration.GetConnectionString("DefaultConnection"));
+                options.UseSqlServer(Environment.GetEnvironmentVariable("Docker_ProductDb_ConnectionString")
+                    ?? configuration.GetConnectionString("DefaultConnection"));
             });
 
-            services.AddScoped<ICategoryRepository,CategoryRepository>();
-            services.AddScoped<IProductRepository,ProductRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
 
         }
     }
