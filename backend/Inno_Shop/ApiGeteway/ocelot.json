@@ -1,0 +1,19 @@
+{
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:9005"
+  },
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/gateway/GetAllProducts",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/api/Product/GetAllProducts",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9001
+        }
+      ]
+    }
+  ]
+}
