@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  usermanagement.db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+    - 8003:1433
+    environment:
+    - ACCEPT_EULA=Y
+    - MSSQL_SA_PASSWORD=myStong_Password1234%
+  usermanagement.api:
+    image: ${DOCKER_REGISTRY-}usermanagementapi
+    build:
+      context: .
+      dockerfile: UserManagement.API/Dockerfile
+    ports:
+    - 9002:8080
+    - 9003:8081
+    depends_on:
+    - usermanagement.db
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:8081;http://+:8080
+      - ASPNETCORE_HTTPS_PORT=8081
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=mypass123
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - Docker_UserDb_ConnectionString=Server=usermanagement.db,1433;Database=user_management;User Id=sa;Password=myStong_Password1234%;TrustServerCertificate=True;
+    volumes:
+      - ~/.aspnet/https:/https:ro

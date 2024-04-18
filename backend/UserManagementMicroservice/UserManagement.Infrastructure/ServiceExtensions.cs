@@ -20,7 +20,8 @@ namespace UserManagement.Infrastructure
         {
             services.AddDbContext<UserManagementDbContext>(options =>
             {
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+                options.UseSqlServer(Environment.GetEnvironmentVariable("Docker_UserDb_ConnectionString")
+                    ?? configuration.GetConnectionString("DefaultConnection"));
             });
 
             services.AddIdentity<User, IdentityRole>(opt =>

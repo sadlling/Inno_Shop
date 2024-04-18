@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 using UserManagement.Domain.Entities;
 
 namespace UserManagement.Infrastructure.Context
@@ -9,25 +11,25 @@ namespace UserManagement.Infrastructure.Context
     {
         public UserManagementDbContext(DbContextOptions<UserManagementDbContext> options) : base(options)
         {
-            //try
-            //{
-            //    var dbCreator = Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator;
-            //    if (dbCreator is not null)
-            //    {
-            //        if (!dbCreator.CanConnect())
-            //        {
-            //            dbCreator.Create();
-            //        }
-            //        if (!dbCreator.HasTables())
-            //        {
-            //            dbCreator.CreateTables();
-            //        }
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine(ex.Message);
-            //}
+            try
+            {
+                var dbCreator = Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator;
+                if (dbCreator is not null)
+                {
+                    if (!dbCreator.CanConnect())
+                    {
+                        dbCreator.Create();
+                    }
+                    if (!dbCreator.HasTables())
+                    {
+                        dbCreator.CreateTables();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
