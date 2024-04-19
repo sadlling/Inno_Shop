@@ -10,7 +10,7 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "productmanagementapi",
           "Port": 9001
         }
       ]

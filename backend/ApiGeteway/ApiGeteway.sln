@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34622.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGeteway", "ApiGeteway\ApiGeteway.csproj", "{79E6AFF5-B6C1-48DF-ACF6-9EE1F2B18B03}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{C0B42EDD-CABA-4F46-B865-E56375025B96}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{79E6AFF5-B6C1-48DF-ACF6-9EE1F2B18B03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79E6AFF5-B6C1-48DF-ACF6-9EE1F2B18B03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79E6AFF5-B6C1-48DF-ACF6-9EE1F2B18B03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79E6AFF5-B6C1-48DF-ACF6-9EE1F2B18B03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0B42EDD-CABA-4F46-B865-E56375025B96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0B42EDD-CABA-4F46-B865-E56375025B96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0B42EDD-CABA-4F46-B865-E56375025B96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0B42EDD-CABA-4F46-B865-E56375025B96}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8F62BBEE-CD07-481F-9554-1542C7308971}
+	EndGlobalSection
+EndGlobal
