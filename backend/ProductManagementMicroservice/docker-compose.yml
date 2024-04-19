@@ -2,6 +2,7 @@ version: "3.4"
 
 services:
   productmanagement.db:
+    container_name: productmanagement-db
     image: mcr.microsoft.com/mssql/server:2019-latest
     ports:
       - 8002:1433
@@ -10,6 +11,7 @@ services:
       - MSSQL_SA_PASSWORD=myStong_Password123%
   productmanagement.api:
     image: ${DOCKER_REGISTRY-}productmanagementapi
+    container_name: productmanagement-api
     build:
       context: .
       dockerfile: ProductManagement.API/Dockerfile

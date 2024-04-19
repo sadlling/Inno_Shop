@@ -7,10 +7,10 @@
       "UpstreamPathTemplate": "/gateway/GetAllProducts",
       "UpstreamHttpMethod": [ "Get" ],
       "DownstreamPathTemplate": "/api/Product/GetAllProducts",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "productmanagementapi",
+          "Host": "productmanagement-api",
           "Port": 9001
         }
       ]

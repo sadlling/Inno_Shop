@@ -2,6 +2,7 @@ version: '3.4'
 
 services:
   usermanagement.db:
+    container_name: usermanagement-db
     image: mcr.microsoft.com/mssql/server:2019-latest
     ports:
     - 8003:1433
@@ -9,6 +10,7 @@ services:
     - ACCEPT_EULA=Y
     - MSSQL_SA_PASSWORD=myStong_Password1234%
   usermanagement.api:
+    container_name: usermanagement-api
     image: ${DOCKER_REGISTRY-}usermanagementapi
     build:
       context: .
