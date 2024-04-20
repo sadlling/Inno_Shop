@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -24,6 +25,7 @@ namespace ProductManagement.API.Controllers
 
         [HttpGet]
         [Route("GetAllCategories")]
+        [Authorize]
         public async Task<IActionResult> GetAll([FromQuery]QueryStringParameters parameters) 
         {
             var response  = await _mediator.Send(new GetAllCategoriesRequest(parameters));
@@ -46,6 +48,7 @@ namespace ProductManagement.API.Controllers
 
         [HttpGet]
         [Route("GetCategoryById")]
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> GetCategoryById([FromQuery]string Id)
         {
 
@@ -59,6 +62,7 @@ namespace ProductManagement.API.Controllers
 
         [HttpPost]
         [Route("CreateCategory")]
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryRequest request)
         {
             await _mediator.Send(request);
@@ -67,6 +71,7 @@ namespace ProductManagement.API.Controllers
 
         [HttpPut]
         [Route("UpdateCategory")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateCategory([FromBody] UpdateCategoryRequest request)
         {
             await _mediator.Send(request);
@@ -75,6 +80,7 @@ namespace ProductManagement.API.Controllers
 
         [HttpDelete]
         [Route("DeleteCategory")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteCategory([FromQuery]string Id)
         {
             await _mediator.Send(new DeleteCategoryRequest(Guid.Parse(Id)));

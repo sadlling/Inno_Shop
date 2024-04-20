@@ -26,6 +26,32 @@
           "Port": 9001
         }
       ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/Login",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamPathTemplate": "/api/Authentication/Login",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9003
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/GetAllUsers",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/api/User/GetAllUsers",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9003
+        }
+      ]
     }
+
+
   ]
 }
