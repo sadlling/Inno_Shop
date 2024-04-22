@@ -162,6 +162,54 @@
       ]
     },
     {
+      "UpstreamPathTemplate": "/gateway/Refresh",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamPathTemplate": "/api/Authentication/RefreshTokens",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9003
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/LogOut",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamPathTemplate": "/api/Authentication/LogOut",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9003
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/ForgotPassword",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamPathTemplate": "/api/Authentication/ForgotPassword",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9003
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/ResetPassword",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamPathTemplate": "/api/Authentication/ResetPassword",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9003
+        }
+      ]
+    },
+    {
       "UpstreamPathTemplate": "/gateway/GetAllUsers",
       "UpstreamHttpMethod": [ "Get" ],
       "DownstreamPathTemplate": "/api/User/GetAllUsers",
