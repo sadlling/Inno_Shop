@@ -138,6 +138,18 @@
     },
     //UsersMicorservice
     {
+      "UpstreamPathTemplate": "/gateway/Register",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamPathTemplate": "/api/Authentication/Register",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9003
+        }
+      ]
+    },
+    {
       "UpstreamPathTemplate": "/gateway/Login",
       "UpstreamHttpMethod": [ "Post" ],
       "DownstreamPathTemplate": "/api/Authentication/Login",

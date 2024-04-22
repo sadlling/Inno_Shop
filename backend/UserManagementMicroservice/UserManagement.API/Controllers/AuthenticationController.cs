@@ -31,7 +31,7 @@ namespace UserManagement.API.Controllers
         }
         [HttpPost]
         [Route("ForgotPassword")]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> ForgotPassword([FromBody]ForgotPasswordRequest request)
         {
             await _mediator.Send(request);
@@ -46,7 +46,7 @@ namespace UserManagement.API.Controllers
         }
         [HttpPost]
         [Route("ResetPassword")]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> ResetPassword([FromBody]ResetPasswordRequest request)
         {
             await _mediator.Send(request);
